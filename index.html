@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Design Checklist &amp; Shareable Link Generator</title>
+    <style>/* Checklist CSS */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --border-color: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #eff6ff;
+    --success: #10b981;
+    --success-light: #ecfdf5;
+    --radius: 10px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --font: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding: 24px 16px;
+}
+
+.app-container {
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: #ffffff;
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: #f1f5f9;
+}
+
+.btn-text {
+    background: transparent;
+    color: var(--text-muted);
+}
+
+.btn-text:hover {
+    color: var(--text-primary);
+}
+
+.btn-danger-sm {
+    background: transparent;
+    color: #ef4444;
+    border: none;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.btn-danger-sm:hover {
+    text-decoration: underline;
+}
+
+/* Progress bar */
+.progress-card {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 14px 18px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.progress-stats {
+    color: var(--primary);
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 10px;
+    background-color: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--success));
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+/* Checklist Cards & Categories */
+.checklist-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.category-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.category-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.category-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    color: var(--text-muted);
+}
+
+.category-badge.all-done {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.checklist-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: #fdfdfd;
+    border: 1px solid #f1f5f9;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+}
+
+.checklist-item:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.checklist-item.checked {
+    background: var(--success-light);
+    border-color: #a7f3d0;
+}
+
+.checklist-item.sub-item {
+    margin-left: 28px;
+}
+
+.checklist-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: var(--success);
+}
+
+.checklist-item .item-text {
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.checklist-item.checked .item-text {
+    color: #065f46;
+    text-decoration: line-through;
+    opacity: 0.85;
+}
+
+.item-link {
+    color: var(--primary);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.item-link:hover {
+    color: var(--primary-hover);
+}
+
+.checklist-item.checked .item-link {
+    color: #065f46;
+}
+
+.item-url {
+    color: var(--text-muted, #6b7280);
+    font-size: 0.85em;
+    word-break: break-all;
+    user-select: all;
+}
+
+/* Editor Panel */
+.editor-panel {
+    background: var(--bg-card);
+    border: 2px dashed var(--primary);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.editor-header {
+    margin-bottom: 20px;
+}
+
+.editor-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+}
+
+.editor-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+#inputTitle,
+#inputDesc {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 14px;
+}
+
+.category-edit-box {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+}
+
+.category-edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.cat-name-input {
+    flex: 1;
+    font-size: 1.05rem !important;
+    font-weight: 600;
+    padding: 10px 14px !important;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+.cat-items-input {
+    min-height: 120px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.editor-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Modal */
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.modal-backdrop.active {
+    display: flex;
+}
+
+.modal-box {
+    background: #ffffff;
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 520px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.share-input-group {
+    display: flex;
+    gap: 8px;
+    margin: 14px 0;
+}
+
+.share-input-group input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    background: #f8fafc;
+}
+
+.share-options {
+    margin-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #0f172a;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 2000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+</head>
+<body cz-shortcut-listen="true">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-top">
+                <div class="brand">
+                    <span class="brand-icon">✓</span>
+                    <div>
+                        <h1 id="checklistTitleDisplay">Production Design QA Checklist</h1>
+                        <p class="subtitle" id="checklistDescDisplay">IBM Design Language and brand production sign-off checklist</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    
+                    <button class="btn btn-secondary" id="btnResetProgress">
+                        <span class="icon">🔄</span> Reset Checks
+                    </button>
+                    
+                    <button class="btn btn-primary" id="btnShareLink">
+                        <span class="icon">🔗</span> Share Link
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Bar Card -->
+            <div class="progress-card">
+                <div class="progress-info">
+                    <span class="progress-label">Production Readiness Completion</span>
+                    <span class="progress-stats" id="progressStats">0 of 25 completed (0%)</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Checklist View -->
+        <main class="main-content">
+            <!-- Edit / Customizer Panel (Collapsible) -->
+            
+
+            <!-- Active Interactive Checklist -->
+            <div class="checklist-grid" id="checklistGrid"><div class="category-card"><div class="category-header">
+            <span class="category-title">1. File Setup and Artboards</span>
+            <span class="category-badge " id="cat-badge-0">
+                0/3 done
+            </span>
+        </div><ul class="checklist-items"><li class="checklist-item  "><input type="checkbox" id="item_0_0"><label class="item-text" for="item_0_0">The file and Artboards are named correctly. (No spaces, no dashes, only underscores) i.e. 241018_IBM_Grammys_2025_email_600x215</label></li><li class="checklist-item  "><input type="checkbox" id="item_0_1"><label class="item-text" for="item_0_1">For print files, there is a Notes layer or Slug layer to indicate asset type, size, color and other important information.</label></li><li class="checklist-item  "><input type="checkbox" id="item_0_2"><label class="item-text" for="item_0_2">Artwork is going to the bleed for print and to the edge of the canvas for digital.</label></li></ul></div><div class="category-card"><div class="category-header">
+            <span class="category-title">2. Grid, Layout and Imagery</span>
+            <span class="category-badge " id="cat-badge-1">
+                0/2 done
+            </span>
+        </div><ul class="checklist-items"><li class="checklist-item  "><input type="checkbox" id="item_1_0"><label class="item-text" for="item_1_0">Layout is utilizing an underlying grid and margins. — See <a href="https://www.ibm.com/design/language/2x-grid" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">2x Grid on IDL</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://www.ibm.com/design/language/2x-grid)</span></label></li><li class="checklist-item  "><input type="checkbox" id="item_1_1"><label class="item-text" for="item_1_1">Images at the proper resolution depending on asset type and size. — See <a href="https://ibm.box.com/s/vv7fi0avmcf40bu8umvxbqe7j9mxf1lb" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">Image Resolution Box Note</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://ibm.box.com/s/vv7fi0avmcf40bu8umvxbqe7j9mxf1lb)</span></label></li></ul></div><div class="category-card"><div class="category-header">
+            <span class="category-title">3. Color, Brand Assets and Accessibility</span>
+            <span class="category-badge " id="cat-badge-2">
+                0/7 done
+            </span>
+        </div><ul class="checklist-items"><li class="checklist-item header-only"><div class="item-text">Colors are used correctly. — See <a href="https://www.ibm.com/design/language/color" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">Color on IDL</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://www.ibm.com/design/language/color)</span></div></li><li class="checklist-item sub-item "><input type="checkbox" id="item_2_1"><label class="item-text" for="item_2_1">The file is using brand colors and swatches from an IBM Color Palette.</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_2_2"><label class="item-text" for="item_2_2">The file is in the correct color space (CMYK for print, RGB for digital).</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_2_3"><label class="item-text" for="item_2_3">It passes WCAG contrast ratios for accessibility. — See <a href="https://www.ibm.com/design/language/color#contrast-ratios" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">Contrast ratios on IDL</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://www.ibm.com/design/language/color#contrast-ratios)</span></label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_2_4"><label class="item-text" for="item_2_4">Select all unused swatches and delete them from the Swatches panel.</label></li><li class="checklist-item header-only"><div class="item-text">8-bar logo and rebus are used correctly. — See <a href="https://www.ibm.com/design/language/ibm-logos/8-bar/" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">8-bar on IDL</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://www.ibm.com/design/language/ibm-logos/8-bar/)</span></div></li><li class="checklist-item sub-item "><input type="checkbox" id="item_2_6"><label class="item-text" for="item_2_6">Positive/Reversed</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_2_7"><label class="item-text" for="item_2_7">With or without registration mark — See <a href="https://ibm.box.com/s/rbdiwe6jyz4rxnircysh9q2786hjkx87" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">IBM 8-bar Logo Usage Box Note</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://ibm.box.com/s/rbdiwe6jyz4rxnircysh9q2786hjkx87)</span></label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_2_8"><label class="item-text" for="item_2_8">Brand-approved color (White, Black, Blues or Grays)</label></li></ul></div><div class="category-card"><div class="category-header">
+            <span class="category-title">4. Typography and IBM Editorial Style</span>
+            <span class="category-badge " id="cat-badge-3">
+                0/10 done
+            </span>
+        </div><ul class="checklist-items"><li class="checklist-item  "><input type="checkbox" id="item_3_0"><label class="item-text" for="item_3_0">Typography is used correctly (<a href="https://www.ibm.com/plex/" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">IBM Plex</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://www.ibm.com/plex/)</span>), and type scales are used appropriately. — See <a href="https://www.ibm.com/design/language/typography/type-scale" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">Type scale on IDL</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://www.ibm.com/design/language/typography/type-scale)</span></label></li><li class="checklist-item  "><input type="checkbox" id="item_3_1"><label class="item-text" for="item_3_1">There aren't any widows, orphans or bad line breaks.</label></li><li class="checklist-item header-only"><div class="item-text">IBM Style has been checked for common items. — See <a href="https://ibm.box.com/s/ci70lqr0ihm6aqsmt4yw8hjfpmv8uf5b" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">IBM Style Common Items Box Folder</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">(https://ibm.box.com/s/ci70lqr0ihm6aqsmt4yw8hjfpmv8uf5b)</span></div></li><li class="checklist-item sub-item "><input type="checkbox" id="item_3_3"><label class="item-text" for="item_3_3">Dates</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_3_4"><label class="item-text" for="item_3_4">Times</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_3_5"><label class="item-text" for="item_3_5">Capitalization</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_3_6"><label class="item-text" for="item_3_6">Headlines and subheads</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_3_7"><label class="item-text" for="item_3_7">Smart quotes (curly) vs. prime marks (vertically straight)</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_3_8"><label class="item-text" for="item_3_8">No serial commas (Oxford commas) in marketing material</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_3_9"><label class="item-text" for="item_3_9">Dashes (hyphen, en dash, em dash)</label></li><li class="checklist-item  "><input type="checkbox" id="item_3_10"><label class="item-text" for="item_3_10">The file has been spell-checked.</label></li></ul></div><div class="category-card"><div class="category-header">
+            <span class="category-title">5. Review and Approvals</span>
+            <span class="category-badge " id="cat-badge-4">
+                0/3 done
+            </span>
+        </div><ul class="checklist-items"><li class="checklist-item sub-item "><input type="checkbox" id="item_4_0"><label class="item-text" for="item_4_0">The file has been approved by design.</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_4_1"><label class="item-text" for="item_4_1">The file has been approved by copy.</label></li><li class="checklist-item sub-item "><input type="checkbox" id="item_4_2"><label class="item-text" for="item_4_2">The file has been approved by stakeholders.</label></li></ul></div></div>
+        </main>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal-backdrop" id="shareModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Share Checklist Link</h3>
+                <button class="modal-close" id="btnCloseShareModal">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Anyone with this link will open this exact checklist with your current configuration and checked progress:</p>
+                
+                <div class="share-input-group">
+                    <input type="text" id="shareUrlInput" readonly="">
+                    <button class="btn btn-primary" id="btnCopyShareUrl">Copy Link</button>
+                </div>
+
+                <div class="share-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="includeProgressCheckbox" checked="">
+                        <span>Include current checked progress in the shared link</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toastMessage"></div>
+
+    <script>// Checklist state management & Compact URL bitmask encoding
+
+const DEFAULT_DATA = {
+    "title": "Production Design QA Checklist",
+    "desc": "IBM Design Language and brand production sign-off checklist",
+    "categories": [
+        {
+            "name": "1. File Setup and Artboards",
+            "items": [
+                "The file and Artboards are named correctly. (No spaces, no dashes, only underscores) i.e. 241018_IBM_Grammys_2025_email_600x215",
+                "For print files, there is a Notes layer or Slug layer to indicate asset type, size, color and other important information.",
+                "Artwork is going to the bleed for print and to the edge of the canvas for digital."
+            ]
+        },
+        {
+            "name": "2. Grid, Layout and Imagery",
+            "items": [
+                "Layout is utilizing an underlying grid and margins. — See [2x Grid on IDL](https://www.ibm.com/design/language/2x-grid)",
+                "Images at the proper resolution depending on asset type and size. — See [Image Resolution Box Note](https://ibm.box.com/s/vv7fi0avmcf40bu8umvxbqe7j9mxf1lb)"
+            ]
+        },
+        {
+            "name": "3. Color, Brand Assets and Accessibility",
+            "items": [
+                "Colors are used correctly. — See [Color on IDL](https://www.ibm.com/design/language/color)",
+                "  - The file is using brand colors and swatches from an IBM Color Palette.",
+                "  - The file is in the correct color space (CMYK for print, RGB for digital).",
+                "  - It passes WCAG contrast ratios for accessibility. — See [Contrast ratios on IDL](https://www.ibm.com/design/language/color#contrast-ratios)",
+                "  - Select all unused swatches and delete them from the Swatches panel.",
+                "8-bar logo and rebus are used correctly. — See [8-bar on IDL](https://www.ibm.com/design/language/ibm-logos/8-bar/)",
+                "  - Positive/Reversed",
+                "  - With or without registration mark — See [IBM 8-bar Logo Usage Box Note](https://ibm.box.com/s/rbdiwe6jyz4rxnircysh9q2786hjkx87)",
+                "  - Brand-approved color (White, Black, Blues or Grays)"
+            ]
+        },
+        {
+            "name": "4. Typography and IBM Editorial Style",
+            "items": [
+                "Typography is used correctly ([IBM Plex](https://www.ibm.com/plex/)), and type scales are used appropriately. — See [Type scale on IDL](https://www.ibm.com/design/language/typography/type-scale)",
+                "There aren't any widows, orphans or bad line breaks.",
+                "IBM Style has been checked for common items. — See [IBM Style Common Items Box Folder](https://ibm.box.com/s/ci70lqr0ihm6aqsmt4yw8hjfpmv8uf5b)",
+                "  - Dates",
+                "  - Times",
+                "  - Capitalization",
+                "  - Headlines and subheads",
+                "  - Smart quotes (curly) vs. prime marks (vertically straight)",
+                "  - No serial commas (Oxford commas) in marketing material",
+                "  - Dashes (hyphen, en dash, em dash)",
+                "The file has been spell-checked."
+            ]
+        },
+        {
+            "name": "5. Review and Approvals",
+            "items": [
+                "- The file has been approved by design.",
+                "- The file has been approved by copy.",
+                "- The file has been approved by stakeholders."
+            ]
+        }
+    ]
+};
+
+let currentChecklist = JSON.parse(JSON.stringify(DEFAULT_DATA));
+let checkedState = {}; // Key: "catIdx_itemIdx", Value: boolean
+
+// Flatten actionable checkbox items (excluding header-only parent items) to compute compact bitmask
+function getOrderedKeys(data) {
+    const keys = [];
+    if (!data || !data.categories) return keys;
+    data.categories.forEach((cat, catIdx) => {
+        const isSubItemFlags = cat.items.map(text => /^( {2,}|\t|\s*[-*>] )/.test(text));
+        const isHeaderFlags = cat.items.map((_, i) => !isSubItemFlags[i] && (i + 1 < cat.items.length && isSubItemFlags[i + 1]));
+
+        cat.items.forEach((_, itemIdx) => {
+            if (!isHeaderFlags[itemIdx]) {
+                keys.push(`${catIdx}_${itemIdx}`);
+            }
+        });
+    });
+    return keys;
+}
+
+// Convert checks map into a tiny hex token like "1a" or ""
+function checksToToken(data, checks = {}) {
+    const keys = getOrderedKeys(data);
+    const binaryStr = keys.map(k => (checks[k] ? "1" : "0")).join("");
+    if (!binaryStr.includes("1")) {
+        return "";
+    }
+    return parseInt(binaryStr, 2).toString(36);
+}
+
+// Parse tiny token back into checks map
+function tokenToChecks(data, token) {
+    const checks = {};
+    if (!token) return checks;
+    try {
+        const keys = getOrderedKeys(data);
+        const num = parseInt(token, 36);
+        let binaryStr = num.toString(2);
+        while (binaryStr.length < keys.length) {
+            binaryStr = "0" + binaryStr;
+        }
+        keys.forEach((key, idx) => {
+            if (binaryStr[idx] === "1") {
+                checks[key] = true;
+            }
+        });
+    } catch (e) {
+        console.warn("Error decoding checks token:", e);
+    }
+    return checks;
+}
+
+// Compact URL encoding - always generates short query parameter ?c=
+function encodeCompact(data, checks = {}) {
+    const token = checksToToken(data, checks);
+    return token ? `?c=${token}` : "";
+}
+
+function loadSavedState() {
+    try {
+        const localSaved = localStorage.getItem("ibm_qa_checklist_data");
+        if (localSaved) {
+            const parsed = JSON.parse(localSaved);
+            if (parsed && parsed.categories && parsed.categories.length > 0) {
+                currentChecklist = parsed;
+            }
+        }
+    } catch (e) {
+        console.warn("Could not read from localStorage:", e);
+    }
+
+    const search = window.location.search;
+    const hash = window.location.hash;
+
+    if (hash) {
+        try {
+            history.replaceState(null, "", window.location.pathname + window.location.search);
+        } catch (e) {
+            console.warn("Could not clear URL hash:", e);
+        }
+    }
+
+    if (search && search.includes("c=")) {
+        const urlParams = new URLSearchParams(search);
+        const token = urlParams.get("c");
+        checkedState = tokenToChecks(currentChecklist, token);
+        return true;
+    } else {
+        try {
+            const savedChecks = localStorage.getItem("ibm_qa_checklist_checks");
+            if (savedChecks) {
+                checkedState = JSON.parse(savedChecks) || {};
+            } else {
+                checkedState = {};
+            }
+        } catch (e) {
+            checkedState = {};
+        }
+    }
+
+    return false;
+}
+
+function persistChecks() {
+    try {
+        localStorage.setItem("ibm_qa_checklist_checks", JSON.stringify(checkedState));
+    } catch (e) {
+        console.warn("Could not save checks to localStorage:", e);
+    }
+}
+
+// Render active checklist
+function renderChecklist() {
+    const titleEl = document.getElementById("checklistTitleDisplay");
+    const descEl = document.getElementById("checklistDescDisplay");
+    const gridEl = document.getElementById("checklistGrid");
+
+    titleEl.textContent = currentChecklist.title || "Production Design QA Checklist";
+    descEl.textContent = currentChecklist.desc || "";
+
+    gridEl.innerHTML = "";
+
+    let totalItems = 0;
+    let completedItems = 0;
+
+    currentChecklist.categories.forEach((cat, catIdx) => {
+        const catCard = document.createElement("div");
+        catCard.className = "category-card";
+
+        const isSubItemFlags = cat.items.map(text => /^( {2,}|\t|\s*[-*>] )/.test(text));
+        const isHeaderFlags = cat.items.map((_, i) => {
+            return !isSubItemFlags[i] && (i + 1 < cat.items.length && isSubItemFlags[i + 1]);
+        });
+
+        let catTotal = 0;
+        let catChecked = 0;
+
+        cat.items.forEach((_, itemIdx) => {
+            if (!isHeaderFlags[itemIdx]) {
+                catTotal++;
+                const key = `${catIdx}_${itemIdx}`;
+                if (checkedState[key]) catChecked++;
+            }
+        });
+
+        const isAllDone = catTotal > 0 && catChecked === catTotal;
+
+        const catHeader = document.createElement("div");
+        catHeader.className = "category-header";
+        catHeader.innerHTML = `
+            <span class="category-title">${escapeHtml(cat.name)}</span>
+            <span class="category-badge ${isAllDone ? 'all-done' : ''}" id="cat-badge-${catIdx}">
+                ${catChecked}/${catTotal} done
+            </span>
+        `;
+        catCard.appendChild(catHeader);
+
+        const ul = document.createElement("ul");
+        ul.className = "checklist-items";
+
+        cat.items.forEach((itemTextRaw, itemIdx) => {
+            const isSubItem = isSubItemFlags[itemIdx];
+            const isHeader = isHeaderFlags[itemIdx];
+            const cleanItemText = itemTextRaw.replace(/^( {2,}|\t|\s*[-*>]\s*)/, "").replace(/^[-*•]\s*/, "").trim();
+            const key = `${catIdx}_${itemIdx}`;
+
+            const li = document.createElement("li");
+
+            if (isHeader) {
+                li.className = "checklist-item header-only";
+                const label = document.createElement("div");
+                label.className = "item-text";
+                label.innerHTML = formatMarkdownLinks(escapeHtml(cleanItemText));
+                li.appendChild(label);
+            } else {
+                totalItems++;
+                const isChecked = !!checkedState[key];
+                if (isChecked) completedItems++;
+
+                li.className = `checklist-item ${isSubItem ? 'sub-item' : ''} ${isChecked ? 'checked' : ''}`;
+                
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = isChecked;
+                checkbox.id = `item_${key}`;
+
+                const label = document.createElement("label");
+                label.className = "item-text";
+                label.htmlFor = `item_${key}`;
+                label.innerHTML = formatMarkdownLinks(escapeHtml(cleanItemText));
+
+                const toggleCheck = (e) => {
+                    if (e.target !== checkbox) {
+                        checkbox.checked = !checkbox.checked;
+                    }
+                    checkedState[key] = checkbox.checked;
+                    persistChecks();
+                    updateUrlState();
+                    renderChecklist();
+                };
+
+                checkbox.addEventListener("change", (e) => {
+                    checkedState[key] = e.target.checked;
+                    persistChecks();
+                    updateUrlState();
+                    renderChecklist();
+                });
+
+                li.addEventListener("click", (e) => {
+                    if (e.target.tagName !== "INPUT" && e.target.tagName !== "LABEL" && e.target.tagName !== "A") {
+                        toggleCheck(e);
+                    }
+                });
+
+                li.appendChild(checkbox);
+                li.appendChild(label);
+            }
+
+            ul.appendChild(li);
+        });
+
+        catCard.appendChild(ul);
+        gridEl.appendChild(catCard);
+    });
+
+    // Update global progress bar
+    updateProgressBar(completedItems, totalItems);
+}
+
+function updateProgressBar(completed, total) {
+    const statsEl = document.getElementById("progressStats");
+    const fillEl = document.getElementById("progressBarFill");
+
+    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+    statsEl.textContent = `${completed} of ${total} completed (${percentage}%)`;
+    fillEl.style.width = `${percentage}%`;
+}
+
+// Base URL without query/hash. Works on http(s):// and file:// (where location.origin is unreliable)
+function getBaseUrl() {
+    return window.location.href.split(/[?#]/)[0];
+}
+
+function updateUrlState() {
+    const encoded = encodeCompact(currentChecklist, checkedState);
+    try {
+        history.replaceState(null, "", `${getBaseUrl()}${encoded}`);
+    } catch (e) {
+        // Some browsers block history updates on local files; never let that stop the UI from updating
+        console.warn("Could not update URL:", e);
+    }
+}
+
+// Editor Builder Logic
+function renderEditor() {
+    document.getElementById("inputTitle").value = currentChecklist.title;
+    document.getElementById("inputDesc").value = currentChecklist.desc;
+
+    const builderContainer = document.getElementById("categoriesBuilder");
+    builderContainer.innerHTML = "";
+
+    currentChecklist.categories.forEach((cat, catIdx) => {
+        const catBox = document.createElement("div");
+        catBox.className = "category-edit-box";
+        catBox.id = `catEditBox_${catIdx}`;
+
+        catBox.innerHTML = `
+            <div class="category-edit-header">
+                <input type="text" class="cat-name-input" value="${escapeHtml(cat.name)}" placeholder="Category Name" style="font-weight: 600;">
+                <button type="button" class="btn-danger-sm btn-delete-cat" data-cat-idx="${catIdx}">Delete Category</button>
+            </div>
+            <div class="form-group">
+                <label>Checklist Items (one item per line):</label>
+                <textarea rows="4" class="cat-items-input">${escapeHtml(cat.items.join("\n"))}</textarea>
+            </div>
+        `;
+
+        builderContainer.appendChild(catBox);
+    });
+
+    document.querySelectorAll(".btn-delete-cat").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const idx = parseInt(e.target.getAttribute("data-cat-idx"), 10);
+            currentChecklist.categories.splice(idx, 1);
+            renderEditor();
+        });
+    });
+}
+
+function saveEditorChanges() {
+    const title = document.getElementById("inputTitle").value.trim() || "Production Design QA Checklist";
+    const desc = document.getElementById("inputDesc").value.trim();
+
+    const catBoxes = document.querySelectorAll(".category-edit-box");
+    const newCategories = [];
+
+    catBoxes.forEach(box => {
+        const catName = box.querySelector(".cat-name-input").value.trim() || "Untitled Category";
+        const itemsRaw = box.querySelector(".cat-items-input").value;
+        const items = itemsRaw
+            .split("\n")
+            .map(s => s.trimEnd())
+            .filter(s => s.trim().length > 0);
+
+        if (items.length > 0) {
+            newCategories.push({
+                name: catName,
+                items: items
+            });
+        }
+    });
+
+    currentChecklist = {
+        title,
+        desc,
+        categories: newCategories
+    };
+
+    checkedState = {};
+    try {
+        localStorage.setItem("ibm_qa_checklist_data", JSON.stringify(currentChecklist));
+    } catch (e) {
+        console.warn("Could not save to localStorage:", e);
+    }
+
+    updateUrlState();
+    renderChecklist();
+
+    document.getElementById("editorPanel").style.display = "none";
+    showToast("Checklist saved and stored!");
+}
+
+// Helpers
+function escapeHtml(str) {
+    if (!str) return "";
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function formatMarkdownLinks(str) {
+    if (!str) return "";
+    // The visible URL is a fallback for hosts (e.g. Box preview) that sandbox the page and block link navigation
+    return str.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="item-link" onclick="event.stopPropagation()">$1</a> <span class="item-url" onclick="event.preventDefault(); event.stopPropagation()">($2)</span>');
+}
+
+function showToast(msg) {
+    const toast = document.getElementById("toastMessage");
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
+}
+
+// Event Listeners
+document.addEventListener("DOMContentLoaded", () => {
+    loadSavedState();
+    renderChecklist();
+
+    // Toggle Editor Panel (absent in downloaded copies, which are view-only)
+    const btnEditMode = document.getElementById("btnEditMode");
+    const editorPanel = document.getElementById("editorPanel");
+    if (btnEditMode && editorPanel) {
+        btnEditMode.addEventListener("click", () => {
+            const isHidden = editorPanel.style.display === "none";
+            if (isHidden) {
+                renderEditor();
+                editorPanel.style.display = "block";
+                editorPanel.scrollIntoView({ behavior: "smooth" });
+            } else {
+                editorPanel.style.display = "none";
+            }
+        });
+
+        document.getElementById("btnCancelEdit").addEventListener("click", () => {
+            editorPanel.style.display = "none";
+        });
+
+        document.getElementById("btnAddCategory").addEventListener("click", () => {
+            currentChecklist.categories.push({
+                name: `Category ${currentChecklist.categories.length + 1}`,
+                items: ["New item 1", "New item 2"]
+            });
+            renderEditor();
+        });
+
+        document.getElementById("btnSaveCustomList").addEventListener("click", saveEditorChanges);
+    }
+
+    // Download standalone HTML with current customisations baked in (button absent in downloaded copies)
+    const btnDownloadHtml = document.getElementById("btnDownloadHtml");
+    if (btnDownloadHtml) btnDownloadHtml.addEventListener("click", async () => {
+        const [cssText, jsText] = await Promise.all([
+            fetch("checklist.css").then(r => r.text()),
+            fetch("checklist.js").then(r => r.text())
+        ]);
+
+        const clone = document.documentElement.cloneNode(true);
+
+        // Replace <link rel="stylesheet"> with inline <style>
+        const linkEl = clone.querySelector('link[rel="stylesheet"]');
+        if (linkEl) {
+            const styleEl = document.createElement("style");
+            styleEl.textContent = cssText;
+            linkEl.replaceWith(styleEl);
+        }
+
+        // Replace <script src="..."> with inline <script> (with updated DEFAULT_DATA)
+        const scriptEl = clone.querySelector('script[src]');
+        if (scriptEl) {
+            const jsonString = JSON.stringify(currentChecklist, null, 4);
+            const updatedJs = jsText.replace(
+                /const DEFAULT_DATA = \{[\s\S]*?\n\s*\};/,
+                `const DEFAULT_DATA = ${jsonString};`
+            );
+            const inlineScript = document.createElement("script");
+            inlineScript.textContent = updatedJs;
+            scriptEl.replaceWith(inlineScript);
+        }
+
+        const cloneTitle = clone.querySelector("#checklistTitleDisplay");
+        if (cloneTitle) cloneTitle.textContent = currentChecklist.title;
+        const cloneDesc = clone.querySelector("#checklistDescDisplay");
+        if (cloneDesc) cloneDesc.textContent = currentChecklist.desc;
+
+        // Downloaded copies are view-only: remove all editing and download UI
+        const cloneEditor = clone.querySelector("#editorPanel");
+        if (cloneEditor) cloneEditor.remove();
+        const cloneEditBtn = clone.querySelector("#btnEditMode");
+        if (cloneEditBtn) cloneEditBtn.remove();
+        const cloneDownloadBtn = clone.querySelector("#btnDownloadHtml");
+        if (cloneDownloadBtn) cloneDownloadBtn.remove();
+
+        const fullDoc = `<!DOCTYPE html>\n${clone.outerHTML}`;
+        const blob = new Blob([fullDoc], { type: "text/html;charset=utf-8" });
+        const downloadUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = downloadUrl;
+        a.download = "production-design-qa-checklist.html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(downloadUrl);
+        showToast("HTML file downloaded with all your changes saved!");
+    });
+
+    // Reset Progress
+    document.getElementById("btnResetProgress").addEventListener("click", () => {
+        if (confirm("Are you sure you want to clear all checked items?")) {
+            checkedState = {};
+            persistChecks();
+            updateUrlState();
+            renderChecklist();
+            showToast("Checks cleared.");
+        }
+    });
+
+    // Share Modal
+    const shareModal = document.getElementById("shareModal");
+    const shareUrlInput = document.getElementById("shareUrlInput");
+    const includeProgressCheckbox = document.getElementById("includeProgressCheckbox");
+
+    const generateShareUrl = () => {
+        const checksToInclude = includeProgressCheckbox.checked ? checkedState : {};
+        const encoded = encodeCompact(currentChecklist, checksToInclude);
+        const url = `${getBaseUrl()}${encoded}`;
+        shareUrlInput.value = url;
+    };
+
+    document.getElementById("btnShareLink").addEventListener("click", () => {
+        generateShareUrl();
+        shareModal.classList.add("active");
+    });
+
+    document.getElementById("btnCloseShareModal").addEventListener("click", () => {
+        shareModal.classList.remove("active");
+    });
+
+    includeProgressCheckbox.addEventListener("change", generateShareUrl);
+
+    document.getElementById("btnCopyShareUrl").addEventListener("click", () => {
+        shareUrlInput.select();
+        navigator.clipboard.writeText(shareUrlInput.value).then(() => {
+            showToast("Shareable link copied to clipboard!");
+            shareModal.classList.remove("active");
+        }).catch(() => {
+            document.execCommand("copy");
+            showToast("Link copied!");
+            shareModal.classList.remove("active");
+        });
+    });
+});
+</script>
+
+
+</body></html>
